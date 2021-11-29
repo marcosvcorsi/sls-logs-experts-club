@@ -1,5 +1,5 @@
 {
-  "name": "serverless-example",
+  "name": "sls-logs",
   "version": "0.0.1",
   "description": "Serverless REST API using serverless",
   "main": "handlers.js",

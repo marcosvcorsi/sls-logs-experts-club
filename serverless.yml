@@ -8,8 +8,28 @@ provider:
   region: us-east-1
   memorySize: 128
   tracing:
+    apiGateway: true
     lambda: true
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - SNS:Publish
+      Resource: !Ref DeletedAccountTopic
+    - Effect: Allow
+      Action:
+        - xray:PutTraceSegments
+        - xray:PutTelemetryRecords
+
+resources:
+  Resources:
+    DeletedAccountTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        DisplayName: "Topic used for publishing deleted accounts"
+        TopicName: DeletedAccountTopic
 
 functions:
   deleteAccount:
     handler: src/app.deleteAccount
+    environment:
+      SNS_TOPIC: !Ref DeletedAccountTopic

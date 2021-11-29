@@ -19,6 +19,8 @@ provider:
       Action:
         - xray:PutTraceSegments
         - xray:PutTelemetryRecords
+      Resource:
+        - "*"
 
 resources:
   Resources:
